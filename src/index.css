@@ -5,6 +5,7 @@
   font-family: "Playfair", serif;
 }
 
+/* book list background image */
 header {
   background-image: url('https://images.pexels.com/photos/25049380/pexels-photo-25049380.jpeg');
   height: 500px;
@@ -19,4 +20,24 @@ header {
   height: 500px;
   width: 100%;
   background-color: rgb(0, 0, 0, 0.438);
+}
+
+
+/* add book animation */
+.book {
+  animation: anime 2s infinite;
+}
+
+@keyframes anime {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2)
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
