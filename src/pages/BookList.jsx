@@ -5,7 +5,7 @@ import { BiSolidBookAdd } from "react-icons/bi";
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { addBookApi, getAllBooksApi } from '../services/allApi';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,8 +24,8 @@ const BookList = () => {
     // console.log(bookDetails);
 
     const [allBooks, setAllBooks] = useState([])
-    console.log(allBooks);
-
+    // console.log(allBooks);
+    const [searchKey, setSearchKey] = useState('')
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -70,7 +70,7 @@ const BookList = () => {
 
     // Get all books
     const getAllBooks = async () => {
-        const result = await getAllBooksApi()
+        const result = await getAllBooksApi(searchKey)
         // console.log(result);
         setAllBooks(result.data)
     }
@@ -87,7 +87,7 @@ const BookList = () => {
         }
 
         getAllBooks()
-    }, [])
+    }, [searchKey])
 
     return (
         <>
@@ -100,7 +100,7 @@ const BookList = () => {
                         <div className="col-md-4 d-flex flex-column align-items-center justify-content-center" style={{ marginTop: '200px' }}>
                             <h1 className='text-white' style={{ userSelect: 'none' }}>Discover. Review. Repeat</h1>
                             <div className='w-100 mt-3'>
-                                <input type="text" placeholder='search name...' className='form-control' />
+                                <input onChange={(e) => setSearchKey(e.target.value)} type="text" placeholder='search name...' className='form-control' />
                             </div>
                         </div>
                         <div className="col-md-4"></div>
@@ -129,7 +129,7 @@ const BookList = () => {
                     <div className="row mt-5 ps-5">
                         {allBooks?.length > 0 ?
                             allBooks.map((item, index) => (
-                                <div className="col-md-3 mb-5" key={index} style={{userSelect:''}}>
+                                <div className="col-md-3 mb-5" key={index} style={{ userSelect: '' }}>
                                     <div onClick={() => handleNavigate(item?._id)} className='d-flex flex-column align-items-center border shadow' style={{ width: '260px', borderRadius: '20px', cursor: 'pointer' }}>
                                         <div className='mb-3'>
                                             <img src={item?.imageurl} alt="no img" style={{ width: '250px', height: '300px', borderRadius: '20px' }} />
@@ -169,7 +169,7 @@ const BookList = () => {
                         </div>
 
                         <div className='mb-3'>
-                            <input type="text" value={bookDetails.description} onChange={(e) => setBookDetails({ ...bookDetails, description: e.target.value })} className='form-control' placeholder='Description' style={{ backgroundColor: 'rgba(187, 194, 195, 0.33)' }} />
+                            <textarea type="text" value={bookDetails.description} onChange={(e) => setBookDetails({ ...bookDetails, description: e.target.value })} className='form-control' placeholder='Description' style={{ backgroundColor: 'rgba(187, 194, 195, 0.33)' }} />
                         </div>
 
                         <div className='mb-3'>
@@ -184,6 +184,8 @@ const BookList = () => {
                     <Button variant="success" type='button' onClick={handleAdd}>ADD</Button>
                 </Modal.Footer>
             </Modal>
+
+            <ToastContainer position='top-center' autoClose={2000} theme='colored' />
         </>
     )
 }
