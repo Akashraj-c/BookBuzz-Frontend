@@ -12,7 +12,7 @@ function App() {
         <Route path={'/register'} element={<Auth register />} />
         <Route path={'/login'} element={<Auth />} />
         <Route path={'/'} element={<BookList />} />
-        <Route path={'/bookdetails'} element={<BookDetails />} />
+        <Route path={'/bookdetails/:id'} element={<BookDetails />} />
       </Routes>
     </>
   )

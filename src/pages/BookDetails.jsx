@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { FaRegStar } from "react-icons/fa";
+import { useParams } from 'react-router-dom';
+import { AbookDetailsApi } from '../services/allApi';
 
 const BookDetails = () => {
+    const { id } = useParams()
+
+    const [AbookDetail, setAbookDetail] = useState('')
+
+    const bookDetails = async (id) => {
+        const result = await AbookDetailsApi(id)
+        console.log(result);
+        if (result.status == 200) {
+            setAbookDetail(result.data)
+        }
+    }
+
+    useEffect(() => {
+        bookDetails(id)
+    }, [])
+
     return (
         <>
             <Header />
@@ -10,21 +28,17 @@ const BookDetails = () => {
             <div className="container">
                 <div className="row border rounded mt-5 shadow">
                     <div className="col-md-3 p-3 d-flex justify-content-center">
-                        <img src="https://m.media-amazon.com/images/I/61De10B-ooL.AC_SX500.jpg" alt="no img" style={{ width: '300px', height: '350px', borderRadius: '20px' }} />
+                        <img src={AbookDetail?.imageurl} alt="no img" style={{ width: '300px', height: '350px', borderRadius: '20px' }} />
                     </div>
                     <div className="col-md-9 ">
                         <div className='d-flex flex-column justify-content-center  align-items-center mt-5'>
-                            <h4>Ram Co Anandhi</h4>
-                            <p>DC BOOKS</p>
+                            <h4>{AbookDetail?.author}</h4>
+                            <p>{AbookDetail?.title}</p>
                         </div>
-                        <div className='d-flex justify-content-between mt-5 px-2'>
-                            <h6><span className='fw-bold'>Publisher:</span> Archibald Constable and Company</h6>
-                            <h6><span className='fw-bold'>Language:</span> English</h6>
-                            <h6><span className='fw-bold'>No of Pages:</span> 260</h6>
-                        </div>
+                       
                         <div className='mt-4'>
-                            <p className='p-3' style={{ textAlign: 'justify' }}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam provident non iusto iste illo, maxime quia voluptatum corporis esse amet, veritatis veniam aut molestiae, sapiente facere maiores error nisi atque?
-                                Impedit voluptatum eum necessitatibus ipsa dolor a saepe repellendus doloremque nemo perspiciatis rerum magni, soluta facilis quis quidem ad molestias! Voluptatem cum nam quas adipisci aspernatur dignissimos, tempora atque corporis!</p>
+                            <p className='fw-bolder'>Description: </p>
+                            <p className='px-5' style={{ textAlign: 'justify' }}>{AbookDetail?.description}</p>
                         </div>
                     </div>
                 </div>
