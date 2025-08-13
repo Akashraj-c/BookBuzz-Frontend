@@ -4,6 +4,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaTwitterSquare } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -31,10 +32,10 @@ const Footer = () => {
                     <div className="col-md-3 d-flex flex-column justify-content-center align-items-center">
                         <h4>FOLLOW US</h4>
                         <ul className='list-unstyled d-flex align-items-center justify-content-center'>
-                            <li className='fs-4 me-3'><FaInstagram /></li>
-                            <li className='fs-4 me-3'><FaFacebook /></li>
-                            <li className='fs-4 me-3'><FaLinkedin /></li>
-                            <li className='fs-4 me-3'><FaTwitterSquare /></li>
+                            <Link to={'https://www.instagram.com/accounts/login/?hl=en'} target='_blank'><li className='fs-4 text-black me-3'><FaInstagram /></li></Link>
+                            <Link to={'https://www.facebook.com/'} target='_blank'><li className='fs-4 me-3 text-black'><FaFacebook /></li></Link>
+                            <Link to={'https://www.linkedin.com/'} target='_blank'><li className='fs-4 me-3 text-black'><FaLinkedin /></li></Link>
+                            <Link to={'https://x.com/?lang=en-in'} target='_blank'><li className='fs-4 me-3 text-black'><FaTwitterSquare /></li></Link>
                         </ul>
                     </div>
                 </div>

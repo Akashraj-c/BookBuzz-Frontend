@@ -27,14 +27,14 @@ const Header = () => {
         <>
             <nav>
                 <div className="container-fluid shadow" >
-                    <div className="row  d-fle align-items-center px-4">
-                        <div className="col-md-2 d-flex justify-content-start">
+                    <div className="d-flex align-items-center justify-content-between w-100 px-4">
+                        <div className=" d-flex justify-content-start w-100">
                             <Link to={'/'}> <img src="https://static.vecteezy.com/system/resources/previews/024/043/963/original/book-icon-clipart-transparent-background-free-png.png" alt="no img" style={{ width: '110px' ,userSelect:'none'}} /></Link>
                         </div>
-                        <div className="col-md-8 d-flex justify-content-center">
+                        <div className="d-flex justify-content-center w-100">
                             <h2 className='fw-bold' style={{ userSelect: 'none' }}>BOOKBUZZ</h2>
                         </div>
-                        <div className="col-md-2 d-flex justify-content-end">
+                        <div className="d-flex justify-content-end w-100">
                             {!token ? <Link to={'/login'}><button className='btn border border-black'>Login <AiOutlineLogin className='text-success fs-4 ms-2' /></button></Link>
                                 :
                                 <button onClick={handleLogout} className='btn border border-black '>Logout <RiLogoutCircleLine className='text-danger fs-4 ms-2' /></button>}
