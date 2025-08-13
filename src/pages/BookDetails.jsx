@@ -130,7 +130,7 @@ const BookDetails = () => {
             <div className='p-5 container'>
                 {allReviews?.length > 0 ?
                     allReviews?.map((item, index) => (
-                        <div key={index} className='d-flex  align-items-center shadow border py-2 rounded mb-4' style={{ userSelect: 'none' }}>
+                        <div key={index} className='d-flex flex-column flex-lg-row align-items-center shadow border py-2 rounded mb-4' style={{ userSelect: 'none' }}>
                             <img className='mx-5' src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png" alt="no img" style={{ width: '100px' }} />
                             <div>
                                 <p className='px-3'><span className='fw-bold'>User ID :</span> {item?.userMail}</p>
