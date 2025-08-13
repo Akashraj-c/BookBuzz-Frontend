@@ -1,12 +1,53 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# BookBuzz – MERN Stack Book Review Platform
+    BookBuzz is a full-stack MERN application where users can register, log in, browse books, view details, and leave reviews.
 
-Currently, two official plugins are available:
+# Features
+- User authentication (Register/Login)
+- Add and browse books
+- Search books by title
+- Add and view reviews
+- Responsive design with React + Bootstrap
+- Axios-based API calls
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Tech Stack
+- Frontend: React, React Router DOM, Bootstrap, Axios, React Toastify, React Icons 
+- Backend: Node.js, Express.js, MongoDB (Mongoose)  
+- Other: JWT for authentication 
 
-## Expanding the ESLint configuration
+# Frontend Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Navigate to frontend folder:
+    - cd frontend
+2. Install dependencies:
+    - npm install
+3. Start development server:
+    - npm run dev
+
+# Backend Setup
+1. Navigate to backend folder:
+    - cd backend
+2. Install dependencies:
+    - npm install
+3. Create a .env file with the following sample config:
+    - MongoDB connection string :-
+     DATABASE = mongodb+srv://<username>:<password>@cluster0.mmuwggg.mongodb.net/<dbname>?retryWrites=true&w=majority&appName=Cluster0
+    - JWT secret key :-
+        SECRETKEY = secretKey
+
+4. Start the backend server
+
+
+# API Routes (Backend)
+* User Authentication:-
+ - POST /register – Register a new user
+ - POST /login – Login user, returns JWT token
+
+* Books
+ -  POST /addbook – Authaticated users can add book
+ -  GET /allbooks – Get all books, search by title (?search=<searchKey>)
+ -  GET /abook/:id – Get book details by ID
+
+* Reviews
+ -  POST /addreview/:id – Authaticated users can add review
+ -  GET /allreviews/:id – Get all reviews for a book

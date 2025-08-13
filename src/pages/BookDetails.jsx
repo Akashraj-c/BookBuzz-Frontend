@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa";
 import { useParams } from 'react-router-dom';
 import { AbookDetailsApi, AddReviewApi, getAllReviewApi } from '../services/allApi';
 import { toast, ToastContainer } from 'react-toastify';
+import Footer from '../components/Footer';
 
 const BookDetails = () => {
     const { id } = useParams()
@@ -15,6 +16,7 @@ const BookDetails = () => {
     const [reviewStar, setReviewStar] = useState('')
     const [AbookDetail, setAbookDetail] = useState('')
     const [allReviews, setAllReviews] = useState([])
+    const [reviewStatus, setReviewStatus] = useState('')
 
     // get book details
     const bookDetails = async (id) => {
@@ -45,6 +47,7 @@ const BookDetails = () => {
 
             if (result.status == 200) {
                 toast.success('Review added successfully')
+                setReviewStatus(result.data)
                 setReviewData('')
             }
             else if (result.status == 403) {
@@ -75,14 +78,14 @@ const BookDetails = () => {
         }
 
         getAllReviews(id)
-    }, [])
+    }, [reviewStatus])
 
     return (
         <>
             <Header />
 
             <div className="container">
-                <div className="row border rounded mt-5 shadow">
+                <div className="row border rounded mt-5 shadow" style={{ userSelect: 'none' }}>
                     <div className="col-md-3 p-3 d-flex justify-content-center">
                         <img src={AbookDetail?.imageurl} alt="no img" style={{ width: '300px', height: '350px', borderRadius: '20px' }} />
                     </div>
@@ -111,9 +114,10 @@ const BookDetails = () => {
 
             </div>
 
+            {/* Review Section */}
             <div className='d-flex flex-column  justify-content-center align-item-center w-100'>
                 <div className='w-100 d-flex  justify-content-center'>
-                    <textarea onChange={(e) => setReviewData(e.target.value)} rows={3} placeholder='Add Review.....' className='form-control border border-dark w-50  mt-3 p-3'></textarea>
+                    <textarea value={reviewData} onChange={(e) => setReviewData(e.target.value)} rows={3} placeholder='Add Review.....' className='form-control border border-dark w-50  mt-3 p-3'></textarea>
                 </div>
 
                 <div className='w-100 d-flex  justify-content-center'>
@@ -126,11 +130,11 @@ const BookDetails = () => {
             <div className='p-5 container'>
                 {allReviews?.length > 0 ?
                     allReviews?.map((item, index) => (
-                        <div key={index} className='d-flex  align-items-center shadow border py-2 rounded mb-4'>
+                        <div key={index} className='d-flex  align-items-center shadow border py-2 rounded mb-4' style={{ userSelect: 'none' }}>
                             <img className='mx-5' src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png" alt="no img" style={{ width: '100px' }} />
                             <div>
                                 <p className='px-3'><span className='fw-bold'>User ID :</span> {item?.userMail}</p>
-                                <p className={item?.rating==0 ? 'px-3 d-none' : 'px-3'}><span className='fw-bold'>Rating :</span> {item?.rating}</p>
+                                <p className={item?.rating == 0 ? 'px-3 d-none' : 'px-3'}><span className='fw-bold'>Rating :</span> {item?.rating}</p>
                                 <p className='px-3'>{item?.review}</p>
                             </div>
                         </div>
@@ -138,7 +142,8 @@ const BookDetails = () => {
                     :
                     <p>No Reviews.....</p>}
             </div>
-
+            
+            <Footer/>
             <ToastContainer position='top-center' autoClose={2000} theme='colored' />
         </>
     )

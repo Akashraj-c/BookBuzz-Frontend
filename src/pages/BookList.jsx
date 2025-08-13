@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import { toast, ToastContainer } from 'react-toastify';
 import { addBookApi, getAllBooksApi } from '../services/allApi';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const BookList = () => {
     const navigate = useNavigate()
@@ -22,7 +23,7 @@ const BookList = () => {
         imageurl: ""
     })
     // console.log(bookDetails);
-
+    const [addBookStatus, setAddBookStatus] = useState('')
     const [allBooks, setAllBooks] = useState([])
     // console.log(allBooks);
     const [searchKey, setSearchKey] = useState('')
@@ -52,6 +53,7 @@ const BookList = () => {
 
             if (result.status == 200) {
                 toast.success('Book added successfully')
+                setAddBookStatus(result.data)
                 handleReset()
                 handleClose()
             }
@@ -87,7 +89,7 @@ const BookList = () => {
         }
 
         getAllBooks()
-    }, [searchKey])
+    }, [searchKey, addBookStatus])
 
     return (
         <>
@@ -129,7 +131,7 @@ const BookList = () => {
                     <div className="row mt-5 ps-5">
                         {allBooks?.length > 0 ?
                             allBooks.map((item, index) => (
-                                <div className="col-md-3 mb-5" key={index} style={{ userSelect: '' }}>
+                                <div className="col-md-3 mb-5" key={index} style={{ userSelect: 'none' }}>
                                     <div onClick={() => handleNavigate(item?._id)} className='d-flex flex-column align-items-center border shadow' style={{ width: '260px', borderRadius: '20px', cursor: 'pointer' }}>
                                         <div className='mb-3'>
                                             <img src={item?.imageurl} alt="no img" style={{ width: '250px', height: '300px', borderRadius: '20px' }} />
@@ -185,6 +187,7 @@ const BookList = () => {
                 </Modal.Footer>
             </Modal>
 
+            <Footer/>
             <ToastContainer position='top-center' autoClose={2000} theme='colored' />
         </>
     )
